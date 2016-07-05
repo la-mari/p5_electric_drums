@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Electric Drums</title>
+	<script src="js/p5.js"></script>
+	<script src="js/p5.sound.js"></script>
+	<script src="js/p5.dom.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+	var drumkitPath = "assets/Dubsounds-DR-55";
+	var kick, snare, hat, rim;
+
+	function preload(){
+		kickSound = loadSound(drumkitPath + '/DR-55_KICK-01.wav');
+		hatSound = loadSound(drumkitPath + '/DR-55_HAT-01.wav');
+	}
+	
+	function setup(){
+		// createCanvas(windowWidth, windowHeight);
+		createCanvas(400, 300);
+		kick = new Drum("kick", kickSound, color('magenta'), 150, {x:250, y:225});
+	}
+	function draw(){
+		background(64);
+		//drumMachine();
+		kick.display();
+
+	}
+
+	function drumMachine(){ 
+		ellipse(100, 200, 80, 80); //hat
+		ellipse(300, 100, 80, 80); //cymbal
+		ellipse(200, 100, 100, 100); //snare
+	}
+
+	function Drum(name, sound, colorize, size, pos){
+		this.name = name;
+		this.sound = sound;
+		this.colorize = colorize;
+		this.size = size;
+		this.pos = pos;
+	}
+
+	Drum.prototype.play = function(){
+		this.sound.play();
+	}
+
+	Drum.prototype.display = function(){
+		ellipse(this.pos.x, this.pos.y, this.size, this.size); //kick
+	}
+
+	Drum.prototype.hit = function(){
+		var result = dist(mouseX, mouseY, this.pos.x, this.pos.y) < this.size/2;
+		return result;
+	}
+
+	function mousePressed(){
+		if(kick.hit()){
+			kick.play();
+		}
+	}
+</script>
+</body>
+
+</html>
