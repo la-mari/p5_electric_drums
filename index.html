@@ -15,26 +15,29 @@
 		kickSound = loadSound(drumkitPath + '/DR-55_KICK-01.wav');
 		hatSound = loadSound(drumkitPath + '/DR-55_HAT-01.wav');
 	}
-	
+
 	function setup(){
 		// createCanvas(windowWidth, windowHeight);
 		createCanvas(400, 300);
 		kick = new Drum("kick", kickSound, color('magenta'), 150, {x:250, y:225});
+		hat = new Drum("hat", hatSound, color('red'), 80, {x:100, y:200});
 	}
+
 	function draw(){
 		background(64);
 		//drumMachine();
-		kick.display();
+		kick.display(); //displays drum
+		hat.display(); 
 
 	}
 
 	function drumMachine(){ 
-		ellipse(100, 200, 80, 80); //hat
+		// ellipse(100, 200, 80, 80); //hat
 		ellipse(300, 100, 80, 80); //cymbal
 		ellipse(200, 100, 100, 100); //snare
 	}
 
-	function Drum(name, sound, colorize, size, pos){
+	var Drum = function(name, sound, colorize, size, pos){
 		this.name = name;
 		this.sound = sound;
 		this.colorize = colorize;
@@ -58,6 +61,9 @@
 	function mousePressed(){
 		if(kick.hit()){
 			kick.play();
+		}
+		else if(hat.hit()){
+			hat.play();
 		}
 	}
 </script>
