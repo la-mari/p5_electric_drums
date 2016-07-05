@@ -2,14 +2,17 @@
 <html>
 <head>
 	<title>Electric Drums</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<script src="js/p5.js"></script>
 	<script src="js/p5.sound.js"></script>
 	<script src="js/p5.dom.js"></script>
 </head>
 <body>
+<h1>Drum PAW</h1>
 <script type="text/javascript">
 	var drumkitPath = "assets/Dubsounds-DR-55";
 	var kick, snare, hat, rim;
+	var bgColor = 64;
 
 	function preload(){
 		kickSound = loadSound(drumkitPath + '/DR-55_KICK-02.wav');
@@ -21,20 +24,21 @@
 	function setup(){
 		// createCanvas(windowWidth, windowHeight);
 		createCanvas(400, 300);
-		kick = new Drum("kick", kickSound, color('magenta'), 150, {x:250, y:225});
-		hat = new Drum("hat", hatSound, color(255, 204, 0), 80, {x:100, y:200}); //yellow
-		rim = new Drum("rim", rimSound, color(128, 229, 255), 80, {x:300, y:100}); //blue
-		snare = new Drum("snare", snareSound, color(0, 230, 115), 100, {x:200, y:100}); //green
+		kick = new Drum("kick", kickSound, color('magenta'), 150, {x:225, y:202});
+		hat = new Drum("hat", hatSound, color(255, 204, 0), 80, {x:120, y:150}); //yellow
+		rim = new Drum("rim", rimSound, color(128, 229, 255), 80, {x:288, y:102}); //blue
+		snare = new Drum("snare", snareSound, color(0, 230, 115), 100, {x:191, y:81}); //green
 	}
 
 	function draw(){
-		background(64);
+		background(bgColor);
 		//drumMachine();
 		kick.display(); //displays drum
 		hat.display(); 
 		rim.display();
 		snare.display();
-		grid();
+		// grid();
+		bgColor = 64;
 
 	}
 
@@ -63,6 +67,7 @@
 	Drum.prototype.display = function(){
 		push(); //start/save new drawing settings
 		fill(this.colorize);
+		strokeWeight(4);
 		ellipse(this.pos.x, this.pos.y, this.size, this.size); //kick
 		pop(); //restore original settings
 	}
@@ -75,16 +80,20 @@
 	function mousePressed(){
 		if(kick.hit()){
 			kick.play();
+			bgColor = kick.colorize;
 
 		}
 		else if(hat.hit()){
 			hat.play();
+			bgColor = hat.colorize;
 		}
 		else if(rim.hit()){
 			rim.play();
+			bgColor = rim.colorize;
 		}
 		else if(snare.hit()){
 			snare.play();
+			bgColor = snare.colorize;
 		}
 	}
 </script>
